@@ -31,6 +31,14 @@ builds:
       - -X main.version={{.Version}}
       - -X main.commit={{.ShortCommit}}
       - -X main.date={{.Date}}
+    hooks:
+      # Sign + notarize darwin binaries in place, before they are archived, so
+      # macOS Gatekeeper recognizes them. No-ops for non-darwin targets and when
+      # signing credentials are absent (e.g. local snapshot builds). See
+      # scripts/macos-sign.sh and the release workflow for credential wiring.
+      post:
+        - cmd: bash scripts/macos-sign.sh "{{ .Os }}" "{{ .Path }}"
+          output: true
 
 archives:
   - id: default

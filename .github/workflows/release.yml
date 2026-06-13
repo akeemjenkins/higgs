@@ -48,6 +48,47 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Install rcodesign (Apple code signing)
+        run: |
+          set -euo pipefail
+          ver=0.29.0
+          asset="apple-codesign-${ver}-x86_64-unknown-linux-musl"
+          url="https://github.com/indygreg/apple-platform-rs/releases/download/apple-codesign%2F${ver}/${asset}.tar.gz"
+          curl -fsSL "$url" -o /tmp/rcodesign.tar.gz
+          echo "dbe85cedd8ee4217b64e9a0e4c2aef92ab8bcaaa41f20bde99781ff02e600002  /tmp/rcodesign.tar.gz" | sha256sum -c -
+          tar -xzf /tmp/rcodesign.tar.gz -C /tmp
+          sudo install -m 0755 "/tmp/${asset}/rcodesign" /usr/local/bin/rcodesign
+          rcodesign --version
+
+      - name: Prepare macOS signing credentials
+        env:
+          MACOS_CERT_P12: ${{ secrets.MACOS_CERT_P12 }}
+          MACOS_CERT_PASSWORD: ${{ secrets.MACOS_CERT_PASSWORD }}
+          APPLE_API_KEY_P8: ${{ secrets.APPLE_API_KEY_P8 }}
+          APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+          APPLE_API_ISSUER_ID: ${{ secrets.APPLE_API_ISSUER_ID }}
+        run: |
+          set -euo pipefail
+          if [ -z "${MACOS_CERT_P12}" ]; then
+            echo "No MACOS_CERT_P12 secret present — darwin binaries will NOT be signed."
+            exit 0
+          fi
+          d="${RUNNER_TEMP}/macos-sign"
+          mkdir -p "$d"
+          printf '%s' "$MACOS_CERT_P12"   | tr -d '[:space:]' | base64 -d > "$d/cert.p12"
+          printf '%s' "$MACOS_CERT_PASSWORD" > "$d/p12.pw"
+          printf '%s' "$APPLE_API_KEY_P8"  | tr -d '[:space:]' | base64 -d > "$d/AuthKey.p8"
+          rcodesign encode-app-store-connect-api-key \
+            --output-path "$d/asc-key.json" \
+            "$APPLE_API_ISSUER_ID" "$APPLE_API_KEY_ID" "$d/AuthKey.p8"
+          chmod 600 "$d"/*
+          {
+            echo "MACOS_SIGN_P12_FILE=$d/cert.p12"
+            echo "MACOS_SIGN_P12_PASSWORD_FILE=$d/p12.pw"
+            echo "MACOS_NOTARY_API_KEY_FILE=$d/asc-key.json"
+          } >> "$GITHUB_ENV"
+          echo "macOS signing credentials prepared at $d"
+
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@5daf1e915a5f0af01ddbcd89a43b8061ff4f1a89 # v7
         with:
