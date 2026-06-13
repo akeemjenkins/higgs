@@ -71,7 +71,7 @@ func ChatWithSchema(ctx context.Context, baseURL, model string, messages []ChatM
 	}
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "application/json")
-	req.Header.Set("User-Agent", "protoncli/1.0")
+	req.Header.Set("User-Agent", "higgs/1.0")
 
 	client := &http.Client{Timeout: 120 * time.Second}
 	resp, err := client.Do(req)

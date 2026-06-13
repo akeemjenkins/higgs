@@ -35,14 +35,14 @@ type ProcessedMessage struct {
 }
 
 // Open opens or creates a SQLite database at the given path.
-// If path is empty, uses ~/.protoncli/state.db
+// If path is empty, uses ~/.higgs/state.db
 func Open(path string) (*DB, error) {
 	if path == "" {
 		home, err := os.UserHomeDir()
 		if err != nil {
 			return nil, fmt.Errorf("get home dir: %w", err)
 		}
-		dir := filepath.Join(home, ".protoncli")
+		dir := filepath.Join(home, ".higgs")
 		if err := os.MkdirAll(dir, 0700); err != nil {
 			return nil, fmt.Errorf("create state dir: %w", err)
 		}

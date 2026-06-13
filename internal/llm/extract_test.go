@@ -6,7 +6,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/akeemjenkins/protoncli/internal/cerr"
+	"github.com/akeemjenkins/higgs/internal/cerr"
 )
 
 func TestPreset_KnownNames(t *testing.T) {

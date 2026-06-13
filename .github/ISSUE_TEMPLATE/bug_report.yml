@@ -1,5 +1,5 @@
 name: Bug report
-description: Report a problem with protoncli
+description: Report a problem with higgs
 title: "[bug]: "
 labels: [bug, triage]
 body:
@@ -13,7 +13,7 @@ body:
     attributes:
       label: Short description
       description: One-line summary of the problem.
-      placeholder: "e.g. protoncli classify crashes when run against an empty mailbox"
+      placeholder: "e.g. higgs classify crashes when run against an empty mailbox"
     validations:
       required: true
 
@@ -23,7 +23,7 @@ body:
       label: Reproduction
       description: Minimal steps to reproduce the issue. Include commands, config, and inputs where possible.
       placeholder: |
-        1. Run `protoncli ...`
+        1. Run `higgs ...`
         2. Observe ...
     validations:
       required: true
@@ -51,11 +51,11 @@ body:
       label: Environment
       description: |
         Please provide:
-          - Output of `protoncli --version`
+          - Output of `higgs --version`
           - Operating system and version
           - Go version (`go version`) if building from source
       placeholder: |
-        protoncli version: v0.1.0
+        higgs version: v0.1.0
         OS: macOS 14.5
         Go: go1.25.5
     validations:

@@ -66,7 +66,7 @@ const fakeSchemaJSON = `{
 
 func TestDiscoverTools_FiltersToAllowList(t *testing.T) {
 	dir := t.TempDir()
-	bin := writeFakeBin(t, dir, "protoncli", fakeSchemaJSON, "", 0)
+	bin := writeFakeBin(t, dir, "higgs", fakeSchemaJSON, "", 0)
 	tools, err := DiscoverTools(bin, []string{"search", "summarize"})
 	if err != nil {
 		t.Fatalf("DiscoverTools: %v", err)

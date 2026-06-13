@@ -4,10 +4,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/akeemjenkins/protoncli/internal/imapapply"
-	"github.com/akeemjenkins/protoncli/internal/imapclient"
-	"github.com/akeemjenkins/protoncli/internal/imaputil"
-	"github.com/akeemjenkins/protoncli/internal/imaptest"
+	"github.com/akeemjenkins/higgs/internal/imapapply"
+	"github.com/akeemjenkins/higgs/internal/imapclient"
+	"github.com/akeemjenkins/higgs/internal/imaputil"
+	"github.com/akeemjenkins/higgs/internal/imaptest"
 )
 
 func rfc822(subject string) []byte {

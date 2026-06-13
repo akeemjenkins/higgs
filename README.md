@@ -1,19 +1,21 @@
-# protoncli
+# higgs
 
 An agent-first CLI for Proton Mail. Schema manifest for tool use, NDJSON on stdout, typed error envelopes, and a stable exit-code enum — designed to be driven by a language model, not a human.
 
-[![CI](https://github.com/akeemjenkins/protoncli/actions/workflows/ci.yml/badge.svg)](https://github.com/akeemjenkins/protoncli/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/github/v/release/akeemjenkins/protoncli?label=release&logo=github)](https://github.com/akeemjenkins/protoncli/releases/latest)
-[![Go Reference](https://pkg.go.dev/badge/github.com/akeemjenkins/protoncli.svg)](https://pkg.go.dev/github.com/akeemjenkins/protoncli)
+[![CI](https://github.com/akeemjenkins/higgs/actions/workflows/ci.yml/badge.svg)](https://github.com/akeemjenkins/higgs/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/akeemjenkins/higgs?label=release&logo=github)](https://github.com/akeemjenkins/higgs/releases/latest)
+[![Go Reference](https://pkg.go.dev/badge/github.com/akeemjenkins/higgs.svg)](https://pkg.go.dev/github.com/akeemjenkins/higgs)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Go](https://img.shields.io/badge/Go-1.25-blue?logo=go)](https://go.dev/)
+
+> **Unofficial project.** `higgs` is an independent, community-built CLI for Proton Mail. It is not affiliated with, endorsed by, or sponsored by Proton AG. "Proton", "Proton Mail", and related marks are trademarks of Proton AG; this project uses them only to describe interoperability.
 
  
 ## Why this exists
  
-Wiring a normal CLI into an agent loop is painful. Stdout mixes prose and data, errors are English sentences, exit codes are 0-or-1, and the only tool specification is `--help`. `protoncli` inverts that. Every design decision assumes the primary caller is a model:
+Wiring a normal CLI into an agent loop is painful. Stdout mixes prose and data, errors are English sentences, exit codes are 0-or-1, and the only tool specification is `--help`. `higgs` inverts that. Every design decision assumes the primary caller is a model:
  
-- **Schema manifest.** `protoncli schema` emits a JSON description of every subcommand — flags, args, stdout format, exit codes. An agent loads it once and can drive the tool without prompt-engineered command syntax.
+- **Schema manifest.** `higgs schema` emits a JSON description of every subcommand — flags, args, stdout format, exit codes. An agent loads it once and can drive the tool without prompt-engineered command syntax.
 - **NDJSON streaming with a terminator.** Every streaming command emits one JSON object per line and ends with `{"type":"summary", ...}`. Callers know when a stream is done without heuristics.
 - **Typed error envelopes.** Every failure emits `{"error": {"kind", "code", "reason", "message", "hint"}}`. Agents branch on `.error.kind`, not on parsed English.
 - **Exit codes as an enum.** Exit codes map 1:1 to error kinds, so retry and escalation are deterministic: retry on `5 imap`, prompt the user on `2 auth`, surface to the caller on `4 config`.
@@ -24,7 +26,7 @@ The first workload riding this contract is a local-only Proton Mail inbox classi
  
 ## The classifier
  
-`protoncli classify` connects to a running [Proton Mail Bridge](https://proton.me/mail/bridge) over IMAP, streams each message through a local [Ollama](https://ollama.com/) model, and applies one or more labels from an 11-category taxonomy. Every step runs on `localhost`: no API keys, no cloud inference, no telemetry.
+`higgs classify` connects to a running [Proton Mail Bridge](https://proton.me/mail/bridge) over IMAP, streams each message through a local [Ollama](https://ollama.com/) model, and applies one or more labels from an 11-category taxonomy. Every step runs on `localhost`: no API keys, no cloud inference, no telemetry.
  
 The default model is [Gemma 4](https://ollama.com/library/gemma4), chosen because it has native function-calling support, a 128K context window on the small variants, and fits comfortably on a laptop.
  
@@ -35,19 +37,19 @@ The default model is [Gemma 4](https://ollama.com/library/gemma4), chosen becaus
    ```
    ollama pull gemma4
    ```
-3. Install `protoncli`:
+3. Install `higgs`:
    ```
    # Release tarball
-   curl -L https://github.com/akeemjenkins/protoncli/releases/latest/download/protoncli_0.1.0_darwin_arm64.tar.gz | tar xz
+   curl -L https://github.com/akeemjenkins/higgs/releases/latest/download/higgs_1.0.1_darwin_arm64.tar.gz | tar xz
  
    # go install
-   go install github.com/akeemjenkins/protoncli/cmd/protoncli@latest
+   go install github.com/akeemjenkins/higgs/cmd/higgs@latest
    ```
  
    Or build from source:
    ```
-   git clone https://github.com/akeemjenkins/protoncli.git
-   cd protoncli
+   git clone https://github.com/akeemjenkins/higgs.git
+   cd higgs
    make build
    ```
 4. Export Bridge and Ollama settings. A `.env` at the repo root works:
@@ -60,7 +62,7 @@ The default model is [Gemma 4](https://ollama.com/library/gemma4), chosen becaus
    ```
 5. Dry-run against your inbox:
    ```
-   protoncli classify --dry-run --limit 20 INBOX
+   higgs classify --dry-run --limit 20 INBOX
    ```
  
    Review the NDJSON. When the suggestions look right, rerun with `--apply` to write labels back to Proton.
@@ -68,10 +70,10 @@ The default model is [Gemma 4](https://ollama.com/library/gemma4), chosen becaus
  
 ### Schema manifest
  
-`protoncli schema` returns a manifest of every subcommand. Load it once, drive the CLI from it.
+`higgs schema` returns a manifest of every subcommand. Load it once, drive the CLI from it.
  
 ```
-protoncli schema classify
+higgs schema classify
 ```
  
 ```
@@ -134,7 +136,7 @@ The intended flow is: discover mailboxes, classify them, apply labels. Everythin
 Enumerate IMAP mailboxes and return the canonical `All Mail` and `Labels` roots.
  
 ```
-protoncli scan-folders
+higgs scan-folders
 ```
  
 ```
@@ -153,9 +155,9 @@ protoncli scan-folders
 Stream messages through Ollama and emit one NDJSON object per message, followed by a `summary` terminator. Add `--apply` to write labels back to IMAP in the same pass.
  
 ```
-protoncli classify --dry-run --limit 20 INBOX
-protoncli classify --apply --workers 4 "Folders/Accounts"
-protoncli classify --reprocess --no-state INBOX
+higgs classify --dry-run --limit 20 INBOX
+higgs classify --apply --workers 4 "Folders/Accounts"
+higgs classify --reprocess --no-state INBOX
 ```
  
 Flags: `--dry-run`, `--apply`, `--limit N`, `--no-state`, `--reprocess`, `--workers N`.
@@ -170,8 +172,8 @@ Flags: `--dry-run`, `--apply`, `--limit N`, `--no-state`, `--reprocess`, `--work
 Apply pending labels recorded in the state DB. Use when `classify` ran without `--apply`.
  
 ```
-protoncli apply-labels --limit 100 "Folders/Accounts"
-protoncli apply-labels --dry-run "Folders/Accounts"
+higgs apply-labels --limit 100 "Folders/Accounts"
+higgs apply-labels --dry-run "Folders/Accounts"
 ```
  
 ### cleanup-labels
@@ -179,8 +181,8 @@ protoncli apply-labels --dry-run "Folders/Accounts"
 Consolidate legacy or user-created labels into the canonical 11-label taxonomy. Useful after migrating from Proton's built-in filters.
  
 ```
-protoncli cleanup-labels --dry-run
-protoncli cleanup-labels
+higgs cleanup-labels --dry-run
+higgs cleanup-labels
 ```
  
 ### fetch-and-parse
@@ -188,7 +190,7 @@ protoncli cleanup-labels
 Fetch and parse messages without classifying. Useful for piping into other tools.
  
 ```
-protoncli fetch-and-parse INBOX | jq 'select(.from | contains("github"))'
+higgs fetch-and-parse INBOX | jq 'select(.from | contains("github"))'
 ```
  
 ### backfill
@@ -196,7 +198,7 @@ protoncli fetch-and-parse INBOX | jq 'select(.from | contains("github"))'
 Replay a prior `classify` NDJSON log into the state DB. Recovers state after a crash or migration.
  
 ```
-protoncli backfill classify.log
+higgs backfill classify.log
 ```
  
 ### state
@@ -204,9 +206,9 @@ protoncli backfill classify.log
 Inspect or reset the SQLite state DB.
  
 ```
-protoncli state stats
-protoncli state stats "Folders/Accounts"
-protoncli state clear "Folders/Accounts"
+higgs state stats
+higgs state stats "Folders/Accounts"
+higgs state clear "Folders/Accounts"
 ```
  
 ### schema
@@ -214,8 +216,8 @@ protoncli state clear "Folders/Accounts"
 Emit a machine-readable manifest of every subcommand. See [The agent contract](#the-agent-contract).
  
 ```
-protoncli schema
-protoncli schema classify
+higgs schema
+higgs schema classify
 ```
  
 ## Configuration
@@ -224,20 +226,20 @@ All configuration is read from environment variables. Defaults target a standard
  
 ### Credentials
  
-Credentials are stored in the OS keyring (macOS Keychain, Windows Credential Manager, Linux Secret Service via libsecret) so they never live in shell history or a `.env` file. When the keyring is unreachable, an encrypted-file fallback (`~/.protoncli/credentials.enc`, AES-256-GCM with Argon2id-derived keys) is available.
+Credentials are stored in the OS keyring (macOS Keychain, Windows Credential Manager, Linux Secret Service via libsecret) so they never live in shell history or a `.env` file. When the keyring is unreachable, an encrypted-file fallback (`~/.higgs/credentials.enc`, AES-256-GCM with Argon2id-derived keys) is available.
  
 ```
 # Prompt interactively and store via the OS keyring (default).
-protoncli auth login
+higgs auth login
  
 # Pipe the password in from a secret manager:
-pass show proton/bridge | protoncli auth login --username alice@proton.me --password-stdin
+pass show proton/bridge | higgs auth login --username alice@proton.me --password-stdin
  
 # Check where credentials live and which backends are available.
-protoncli auth status
+higgs auth status
  
 # Remove stored credentials from every backend.
-protoncli auth logout
+higgs auth logout
 ```
  
 If `PM_IMAP_USERNAME` and/or `PM_IMAP_PASSWORD` are set in the environment they always win — useful for one-off overrides in CI or shells. To use the encrypted-file backend, export `PM_KEYSTORE_PASSPHRASE` (required to read or write the file) and optionally `PM_KEYSTORE_PATH` to relocate it.
@@ -273,7 +275,7 @@ If `PM_IMAP_USERNAME` and/or `PM_IMAP_PASSWORD` are set in the environment they 
  
 | Variable | Default | Description |
 | --- | --- | --- |
-| `PM_STATE_DB` | `~/.protoncli/state.db` | SQLite state DB path |
+| `PM_STATE_DB` | `~/.higgs/state.db` | SQLite state DB path |
  
 ## Label taxonomy
  
@@ -293,7 +295,7 @@ The classifier is constrained to 11 canonical labels. 612 aliases in `internal/l
 | Security | 2FA, password resets, security alerts |
 | Signups | Account creation, email verification |
  
-See [`internal/labels/data/labels.toml`](https://github.com/akeemjenkins/protoncli/blob/main/internal/labels/data/labels.toml) for the full alias map.
+See [`internal/labels/data/labels.toml`](https://github.com/akeemjenkins/higgs/blob/main/internal/labels/data/labels.toml) for the full alias map.
  
 ## Development
  
@@ -301,7 +303,7 @@ Every common task is wrapped in the repo `Makefile`.
  
 | Target | Description |
 | --- | --- |
-| `make build` | Build the `./bin/protoncli` binary |
+| `make build` | Build the `./bin/higgs` binary |
 | `make test` | Run `go test ./...` |
 | `make test-race` | Run tests with the race detector |
 | `make cover` | Coverage profile plus `go tool cover -func` summary |
@@ -316,15 +318,15 @@ Run `make check` before opening a PR.
  
 ## Contributing
  
-Bug reports and pull requests are welcome — see [CONTRIBUTING.md](https://github.com/akeemjenkins/protoncli/blob/main/CONTRIBUTING.md) for the workflow and code-review expectations.
+Bug reports and pull requests are welcome — see [CONTRIBUTING.md](https://github.com/akeemjenkins/higgs/blob/main/CONTRIBUTING.md) for the workflow and code-review expectations.
  
 ## Security
  
-Please report vulnerabilities privately via the process in [SECURITY.md](https://github.com/akeemjenkins/protoncli/blob/main/SECURITY.md). Do not open public issues for security reports.
+Please report vulnerabilities privately via the process in [SECURITY.md](https://github.com/akeemjenkins/higgs/blob/main/SECURITY.md). Do not open public issues for security reports.
  
 ## License
  
-Apache License 2.0 — see [LICENSE](https://github.com/akeemjenkins/protoncli/blob/main/LICENSE).
+Apache License 2.0 — see [LICENSE](https://github.com/akeemjenkins/higgs/blob/main/LICENSE).
  
 ## Acknowledgements
  

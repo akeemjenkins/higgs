@@ -296,7 +296,7 @@ func TestFileBackend_PathOverrideAndHome(t *testing.T) {
 	t.Setenv("PM_KEYSTORE_PATH", "")
 	os.Unsetenv("PM_KEYSTORE_PATH")
 	fb := newFileBackend()
-	want := filepath.Join(dir, ".protoncli", "credentials.enc")
+	want := filepath.Join(dir, ".higgs", "credentials.enc")
 	if got := fb.Path(); got != want {
 		t.Errorf("path = %q, want %q", got, want)
 	}

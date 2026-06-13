@@ -43,7 +43,7 @@ func TestNoneBackend_Operations(t *testing.T) {
 }
 
 func TestServiceConstants(t *testing.T) {
-	if ServiceName != "protoncli" {
+	if ServiceName != "higgs" {
 		t.Errorf("ServiceName = %q", ServiceName)
 	}
 	if KeyringAccount != "imap" {

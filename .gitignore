@@ -7,7 +7,7 @@
 /dist/
 
 # local state
-/.protoncli/
+/.higgs/
 *.db
 
 # logs/reports

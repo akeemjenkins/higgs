@@ -1,4 +1,4 @@
-// Package email defines the normalized message shape shared across protoncli.
+// Package email defines the normalized message shape shared across higgs.
 package email
 
 import (

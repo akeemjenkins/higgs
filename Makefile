@@ -9,7 +9,7 @@ LDFLAGS := -s -w \
 	-X main.date=$(DATE)
 
 build:
-	go build -trimpath -ldflags "$(LDFLAGS)" -o bin/protoncli ./cmd/protoncli
+	go build -trimpath -ldflags "$(LDFLAGS)" -o bin/higgs ./cmd/higgs
 
 tidy:
 	go mod tidy
@@ -37,4 +37,4 @@ vuln:
 check: vet test-race vuln
 
 clean:
-	rm -f bin/protoncli coverage.out coverage.html
+	rm -f bin/higgs coverage.out coverage.html

@@ -1,6 +1,6 @@
 // Package agent implements an agentic question-answering loop that plans,
-// invokes read-only protoncli subcommands, and synthesizes a grounded
-// answer. Tool discovery is performed by subprocessing `protoncli schema`.
+// invokes read-only higgs subcommands, and synthesizes a grounded
+// answer. Tool discovery is performed by subprocessing `higgs schema`.
 // Tool invocation is also subprocess-based against the same binary, which
 // keeps the agent's blast radius bounded to the current process's binary
 // and shell environment.
@@ -16,7 +16,7 @@ import (
 	"time"
 )
 
-// DefaultAllowedTools is the curated, read-only whitelist of protoncli
+// DefaultAllowedTools is the curated, read-only whitelist of higgs
 // subcommand names the agent may invoke. Callers may override via
 // Options.AllowedTools, but the tool loop enforces allow-list membership
 // strictly; any planned step referencing a tool outside this set is

@@ -14,13 +14,13 @@ Only the latest minor release receives security fixes.
 **Do not open a public GitHub issue for security reports.**
 
 Use GitHub's private vulnerability reporting:
-<https://github.com/akeemjenkins/protoncli/security/advisories/new>
+<https://github.com/akeemjenkins/higgs/security/advisories/new>
 
 Please include:
 
 - A description of the issue and the potential impact.
 - Steps to reproduce, or a minimal proof-of-concept.
-- The `protoncli --version` you observed it on.
+- The `higgs --version` you observed it on.
 - Any mitigations you already know of.
 
 ### Response SLA
@@ -33,14 +33,14 @@ Please include:
 
 In scope:
 
-- The `protoncli` binary itself (CLI surface, IMAP code paths, Ollama client,
+- The `higgs` binary itself (CLI surface, IMAP code paths, Ollama client,
   state DB handling, terminal output sanitization, error envelope).
 
 Out of scope (report upstream):
 
 - Proton Mail Bridge vulnerabilities — report at <https://proton.me/security/bug-bounty>.
 - Ollama runtime vulnerabilities — report to the [Ollama project](https://github.com/ollama/ollama/security).
-- Vulnerabilities in dependencies unless they are introduced by how protoncli
+- Vulnerabilities in dependencies unless they are introduced by how higgs
   uses them.
 
 ## Coordinated disclosure

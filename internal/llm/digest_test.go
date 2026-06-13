@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/akeemjenkins/protoncli/internal/cerr"
+	"github.com/akeemjenkins/higgs/internal/cerr"
 )
 
 func TestDigest_Success(t *testing.T) {

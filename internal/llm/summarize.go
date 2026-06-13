@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/akeemjenkins/protoncli/internal/cerr"
-	"github.com/akeemjenkins/protoncli/internal/ollama"
+	"github.com/akeemjenkins/higgs/internal/cerr"
+	"github.com/akeemjenkins/higgs/internal/ollama"
 )
 
 // Summary is the structured output of the summarize verb.

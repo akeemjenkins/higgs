@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial public release of `protoncli`.
+- Initial public release of `higgs`.
 - 29 subcommands across read, write, LLM, and agentic workflows:
   - Read: `scan-folders`, `search`, `fetch-and-parse`, `attachments`,
     `threads`, `thread`, `state` (stats/clear), `schema`.
@@ -40,7 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   delivery failures surface as `api` (exit 1) with `reason: "smtpError"`.
 - Credential storage via OS keyring (macOS Keychain / Windows Credential
   Manager / libsecret) with an encrypted-file fallback
-  (`~/.protoncli/credentials.enc`, AES-256-GCM keyed by Argon2id from
+  (`~/.higgs/credentials.enc`, AES-256-GCM keyed by Argon2id from
   `PM_KEYSTORE_PASSPHRASE`), and `auth login/logout/status` subcommands.
   `PM_IMAP_USERNAME`/`PM_IMAP_PASSWORD` still work and take precedence.
 - Typed error envelope with stable, documented exit codes:
@@ -57,4 +57,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Makefile targets: `build`, `test`, `test-race`, `cover`, `cover-html`,
   `vet`, `vuln`, `check`, `clean`, `tidy`.
 
-[Unreleased]: https://github.com/akeemjenkins/protoncli/commits/main
+[Unreleased]: https://github.com/akeemjenkins/higgs/commits/main

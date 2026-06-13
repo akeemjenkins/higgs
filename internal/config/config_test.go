@@ -7,7 +7,7 @@ import (
 
 	"github.com/zalando/go-keyring"
 
-	"github.com/akeemjenkins/protoncli/internal/keystore"
+	"github.com/akeemjenkins/higgs/internal/keystore"
 )
 
 // clearAllEnv unsets every config env var so each test starts from a known baseline.

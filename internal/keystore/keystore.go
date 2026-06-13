@@ -1,9 +1,9 @@
-// Package keystore provides pluggable credential storage for the protoncli CLI.
+// Package keystore provides pluggable credential storage for the higgs CLI.
 //
 // Two backends are provided:
 //   - keyring: backed by the OS keyring (macOS Keychain, Windows Credential
 //     Manager, Linux Secret Service via libsecret).
-//   - file:    an encrypted file under ~/.protoncli/credentials.enc, unlocked by
+//   - file:    an encrypted file under ~/.higgs/credentials.enc, unlocked by
 //     a passphrase supplied via PM_KEYSTORE_PASSPHRASE.
 //
 // The Default() selector picks the first available backend (keyring, then file,
@@ -14,7 +14,7 @@ import "errors"
 
 // ServiceName is the service identifier used by the keyring backend. It also
 // doubles as the OS-level label so secrets are easy to locate manually.
-const ServiceName = "protoncli"
+const ServiceName = "higgs"
 
 // KeyringAccount is the single account key under which the credential pair is
 // stored. The CLI talks to one Bridge account, so one pair is sufficient.

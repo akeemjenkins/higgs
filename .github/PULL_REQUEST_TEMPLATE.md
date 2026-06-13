@@ -1,5 +1,5 @@
 <!--
-Thanks for contributing to protoncli! Please fill out each section below.
+Thanks for contributing to higgs! Please fill out each section below.
 -->
 
 ## Summary

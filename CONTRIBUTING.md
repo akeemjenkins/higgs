@@ -1,6 +1,6 @@
-# Contributing to protoncli
+# Contributing to higgs
 
-Thanks for your interest in improving protoncli. This document covers the dev
+Thanks for your interest in improving higgs. This document covers the dev
 workflow, PR expectations, and the commit convention.
 
 ## Prerequisites
@@ -13,13 +13,13 @@ workflow, PR expectations, and the commit convention.
 ## Setting up
 
 ```sh
-git clone https://github.com/akeemjenkins/protoncli.git
+git clone https://github.com/akeemjenkins/higgs.git
 cd personal-proton
 make build
 make test
 ```
 
-The binary lands at `bin/protoncli`.
+The binary lands at `bin/higgs`.
 
 ## Before you open a PR
 
@@ -64,7 +64,7 @@ Breaking changes use `feat!:` or `fix!:` and include a `BREAKING CHANGE:` footer
 ## Proposing a change
 
 - **Bug**: open an issue using the bug template.
-- **Feature**: open a [Discussion](https://github.com/akeemjenkins/protoncli/discussions)
+- **Feature**: open a [Discussion](https://github.com/akeemjenkins/higgs/discussions)
   first so the design can be agreed before code is written. For small additions
   (a flag, a new schema field), an issue is fine.
 

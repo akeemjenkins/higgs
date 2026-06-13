@@ -3,7 +3,7 @@ package imapapply
 import (
 	"testing"
 
-	"github.com/akeemjenkins/protoncli/internal/imaputil"
+	"github.com/akeemjenkins/higgs/internal/imaputil"
 )
 
 func TestBuildMailboxSet_Nil(t *testing.T) {

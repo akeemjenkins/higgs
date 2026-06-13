@@ -4,7 +4,7 @@ import (
 	"net"
 	"testing"
 
-	"github.com/akeemjenkins/protoncli/internal/config"
+	"github.com/akeemjenkins/higgs/internal/config"
 )
 
 func TestCloseAndLogout_Nil(t *testing.T) {

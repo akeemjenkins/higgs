@@ -15,7 +15,7 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"github.com/akeemjenkins/protoncli/internal/ollama"
+	"github.com/akeemjenkins/higgs/internal/ollama"
 )
 
 // scriptedLLM is a fake ChatFunc that returns canned responses in order.
@@ -49,7 +49,7 @@ func writeAgentFakeBin(t *testing.T, dir string) string {
 	if runtime.GOOS == "windows" {
 		t.Skip("fake binary is a POSIX shell script; not executable on Windows")
 	}
-	path := filepath.Join(dir, "protoncli")
+	path := filepath.Join(dir, "higgs")
 	script := `#!/bin/sh
 case "$1" in
   schema)

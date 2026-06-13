@@ -213,7 +213,7 @@ func generateBoundary() (string, error) {
 	if _, err := rand.Read(b); err != nil {
 		return "", err
 	}
-	return "=_protoncli_" + hex.EncodeToString(b), nil
+	return "=_higgs_" + hex.EncodeToString(b), nil
 }
 
 // validateHeaderValue rejects CR/LF in header values (defense against SMTP

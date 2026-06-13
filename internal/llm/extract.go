@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/akeemjenkins/protoncli/internal/cerr"
-	"github.com/akeemjenkins/protoncli/internal/ollama"
+	"github.com/akeemjenkins/higgs/internal/cerr"
+	"github.com/akeemjenkins/higgs/internal/ollama"
 )
 
 //go:embed schemas/*.json

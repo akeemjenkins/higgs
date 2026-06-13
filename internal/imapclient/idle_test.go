@@ -9,7 +9,7 @@ import (
 	"github.com/emersion/go-imap"
 	"github.com/emersion/go-imap/client"
 
-	"github.com/akeemjenkins/protoncli/internal/imaptest"
+	"github.com/akeemjenkins/higgs/internal/imaptest"
 )
 
 func TestWatch_ValidationErrors(t *testing.T) {

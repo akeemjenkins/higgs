@@ -1,4 +1,4 @@
-# Canonical label taxonomy for protoncli.
+# Canonical label taxonomy for higgs.
 # Each entry defines a canonical label with a short description and the
 # set of aliases that normalize to it. Aliases are matched case-insensitively
 # and after stripping "Labels/" prefixes, whitespace, and slashes.

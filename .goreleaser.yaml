@@ -2,16 +2,16 @@
 # See https://goreleaser.com for documentation.
 version: 2
 
-project_name: protoncli
+project_name: higgs
 
 before:
   hooks:
     - go mod tidy
 
 builds:
-  - id: protoncli
-    main: ./cmd/protoncli
-    binary: protoncli
+  - id: higgs
+    main: ./cmd/higgs
+    binary: higgs
     env:
       - CGO_ENABLED=0
     goos:
@@ -87,7 +87,7 @@ signs:
 release:
   github:
     owner: akeemjenkins
-    name: protoncli
+    name: higgs
   draft: false
   prerelease: auto
   mode: append
@@ -101,7 +101,7 @@ release:
        ```sh
        cosign verify-blob \
          --bundle      checksums.txt.sig \
-         --certificate-identity-regexp 'https://github.com/akeemjenkins/protoncli' \
+         --certificate-identity-regexp 'https://github.com/akeemjenkins/higgs' \
          --certificate-oidc-issuer     'https://token.actions.githubusercontent.com' \
          checksums.txt
        ```

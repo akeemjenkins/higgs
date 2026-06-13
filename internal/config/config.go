@@ -1,4 +1,4 @@
-// Package config loads protoncli runtime configuration (IMAP, Ollama, state)
+// Package config loads higgs runtime configuration (IMAP, Ollama, state)
 // from environment variables.
 package config
 
@@ -10,9 +10,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/akeemjenkins/protoncli/internal/cerr"
-	"github.com/akeemjenkins/protoncli/internal/keystore"
-	"github.com/akeemjenkins/protoncli/internal/termio"
+	"github.com/akeemjenkins/higgs/internal/cerr"
+	"github.com/akeemjenkins/higgs/internal/keystore"
+	"github.com/akeemjenkins/higgs/internal/termio"
 )
 
 type IMAPSecurity string
@@ -54,7 +54,7 @@ func LoadFromEnv() (Config, error) {
 
 	username, password, source := resolveCredentials()
 	if username == "" || password == "" {
-		return Config{}, cerr.Auth("no credentials: run 'protoncli auth login' or set PM_IMAP_USERNAME/PM_IMAP_PASSWORD")
+		return Config{}, cerr.Auth("no credentials: run 'higgs auth login' or set PM_IMAP_USERNAME/PM_IMAP_PASSWORD")
 	}
 	termio.Info("IMAP credentials sourced from %s", source)
 

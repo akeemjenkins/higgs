@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/akeemjenkins/protoncli/internal/cerr"
+	"github.com/akeemjenkins/higgs/internal/cerr"
 )
 
 func newChatServer(t *testing.T, content string) (*httptest.Server, *atomic.Value) {

@@ -1,15 +1,15 @@
 // Package classify runs messages through a local Ollama model and maps the
-// model output onto the canonical protoncli label taxonomy.
+// model output onto the canonical higgs label taxonomy.
 package classify
 
 import (
 	"context"
 	"fmt"
 
-	"github.com/akeemjenkins/protoncli/internal/email"
-	"github.com/akeemjenkins/protoncli/internal/labels"
-	"github.com/akeemjenkins/protoncli/internal/ollama"
-	"github.com/akeemjenkins/protoncli/internal/termio"
+	"github.com/akeemjenkins/higgs/internal/email"
+	"github.com/akeemjenkins/higgs/internal/labels"
+	"github.com/akeemjenkins/higgs/internal/ollama"
+	"github.com/akeemjenkins/higgs/internal/termio"
 )
 
 // Result is the structured classification result from Ollama.

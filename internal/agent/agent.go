@@ -8,12 +8,12 @@ import (
 	"io"
 	"time"
 
-	"github.com/akeemjenkins/protoncli/internal/ollama"
+	"github.com/akeemjenkins/higgs/internal/ollama"
 )
 
 // Options configures a Run invocation.
 type Options struct {
-	// BinPath is the path to the protoncli binary used for subprocess tool
+	// BinPath is the path to the higgs binary used for subprocess tool
 	// calls. Tests may substitute a small shell script.
 	BinPath string
 	// BaseURL is the Ollama API endpoint.

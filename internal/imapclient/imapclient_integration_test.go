@@ -4,9 +4,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/akeemjenkins/protoncli/internal/config"
-	"github.com/akeemjenkins/protoncli/internal/imapclient"
-	"github.com/akeemjenkins/protoncli/internal/imaptest"
+	"github.com/akeemjenkins/higgs/internal/config"
+	"github.com/akeemjenkins/higgs/internal/imapclient"
+	"github.com/akeemjenkins/higgs/internal/imaptest"
 )
 
 func containsAny(s string, subs ...string) bool {

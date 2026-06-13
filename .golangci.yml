@@ -1,4 +1,4 @@
-# golangci-lint configuration for protoncli.
+# golangci-lint configuration for higgs.
 # Conservative defaults; only enables broadly-agreed-upon linters. Loosened
 # rules are annotated with a comment pointing at the reason.
 
@@ -30,7 +30,7 @@ linters:
       # cleanup, and Fprint* to in-process buffers/stderr. Real write errors are
       # surfaced where they matter (e.g. explicit flush/commit paths).
       exclude-functions:
-        - (*github.com/akeemjenkins/protoncli/internal/state.DB).Close
+        - (*github.com/akeemjenkins/higgs/internal/state.DB).Close
         - (*database/sql.DB).Close
         - (*database/sql.Rows).Close
         - (*os.File).Close

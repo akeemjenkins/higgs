@@ -47,7 +47,7 @@ func newFileBackend() *fileBackend { return &fileBackend{} }
 func (f *fileBackend) Name() string { return "encrypted file" }
 
 // Path returns the resolved credential file path. PM_KEYSTORE_PATH overrides the
-// default (~/.protoncli/credentials.enc). If HOME cannot be determined, Path
+// default (~/.higgs/credentials.enc). If HOME cannot be determined, Path
 // returns an empty string.
 func (f *fileBackend) Path() string {
 	if p := os.Getenv("PM_KEYSTORE_PATH"); p != "" {
@@ -57,7 +57,7 @@ func (f *fileBackend) Path() string {
 	if err != nil || home == "" {
 		return ""
 	}
-	return filepath.Join(home, ".protoncli", "credentials.enc")
+	return filepath.Join(home, ".higgs", "credentials.enc")
 }
 
 // Available returns true when the backend is usable — that is, when the

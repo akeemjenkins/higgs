@@ -1,4 +1,4 @@
-module github.com/akeemjenkins/protoncli
+module github.com/akeemjenkins/higgs
 
 go 1.26.2
 
